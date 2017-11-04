@@ -1,4 +1,3 @@
-package sort;
 
 /*
  * Compare two neighboring elements each time, swap if 1st > 2nd.
