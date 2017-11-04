@@ -1,4 +1,3 @@
-package sort;
 
 /*
  * [sorted list | x, unsorted list], 
@@ -36,7 +35,7 @@ public class Insertion_Sort {
 		return arr;
 	}
 	
-	//Only compare target with all sorted sublist until get its position.
+	//Only compare target with all elements in sorted sublist until get its position.
 	public int[] skip_sort(int[] arr) {
 		for (int i = 1; i < arr.length; i++) {
 			int key = arr[i];
