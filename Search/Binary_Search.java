@@ -1,4 +1,3 @@
-package search;
 
 /*
  * Find the middle item in the list and compare with target, 
