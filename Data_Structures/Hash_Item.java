@@ -1,4 +1,3 @@
-package data_structures;
 
 public class Hash_Item {
 	int key;
