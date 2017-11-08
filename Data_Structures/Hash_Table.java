@@ -16,25 +16,25 @@ public class Hash_Table {
 	public static void main(String[] args) {
 		Hash_Table ht = new Hash_Table(2);
 		System.out.println(ht.remove(1));
-		ht.insert(152,3);
-		ht.insert(5234,80);
-		ht.insert(52345,800);
+		ht.put(152,3);
+		ht.put(5234,80);
+		ht.put(52345,800);
 		System.out.println(ht.capacity);
 		System.out.println(ht.search(5234));
-		System.out.println(ht.containsKey(5234));
-		System.out.println(ht.containsValue(80));
+		System.out.println(ht.hasKey(5234));
+		System.out.println(ht.hasValue(80));
 		System.out.println(ht.get(152));
 		System.out.println(ht.search(5234));
-		ht.insert(152,10);
+		ht.put(152,10);
 		System.out.println(ht.search(152));
 		System.out.println(ht.get(152));
 		System.out.println(ht.remove(152));
 		System.out.println(ht.get(152));
 		System.out.println(ht.remove(12));
 		System.out.println(ht.size);
-		ht.insert(152,3);
+		ht.put(152,3);
 		System.out.println(ht.get(152));
-		System.out.println(ht.containsValue(800));
+		System.out.println(ht.hasValue(800));
 	}
 	
 	public Hash_Table(int capacity) {
@@ -71,12 +71,12 @@ public class Hash_Table {
 	}
 	
 	//Check if the given key exists in the table.
-	public boolean containsKey(int key) {
+	public boolean hasKey(int key) {
 		return search(key) != -1;
 	}
 	
 	//Check if the given value exists in the table.
-	public boolean containsValue(int value) {
+	public boolean hasValue(int value) {
 		for (int i = 0; i < this.capacity; i++) {
 			if (this.arr[i] != null && this.arr[i].value == value) {return true;}
 		}
@@ -102,7 +102,7 @@ public class Hash_Table {
 	}
 	
 	//Put new item into table.
-	public void insert(int key, int value) {
+	public void put(int key, int value) {
 		Hash_Item data = new Hash_Item(key, value);
 		int index = search(key);
 		if (index != -1) {
