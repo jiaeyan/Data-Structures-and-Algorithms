@@ -1,4 +1,3 @@
-package data_structures;
 
 /*
  * Use front and rear to maintain queue.
