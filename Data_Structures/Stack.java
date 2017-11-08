@@ -1,4 +1,3 @@
-package data_structures;
 
 /*
  * Use top to maintain the stack.
