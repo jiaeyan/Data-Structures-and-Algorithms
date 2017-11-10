@@ -25,11 +25,13 @@ public class Binary_Search_Tree {
 //		System.out.println(bst.search_iterative(root, 6));
 //		System.out.println(bst.search_iterative(root, 4));
 		bst.insert_iterative(root, 15);
-		bst.preorder_DFS(root);
+//		bst.preorder_DFS(root);
 //		System.out.println(bst.search_iterative(root, 3));
 //		bst.preorder(root);
 //		System.out.println();
 		bst.levelorder_BFS(root);
+//		System.out.println(bst.getHeight(root));
+		bst.levelorder_recursive(root);
 //		System.out.println();
 //		bst.postorder(root);
 	}
@@ -77,6 +79,27 @@ public class Binary_Search_Tree {
 			postorder_recursive(root.right);
 			System.out.print(" " + root.data);
 		}
+	}
+	
+	public void levelorder_recursive(Tree_Node root) {
+		int h = getHeight(root);
+        for (int i = 1; i <= h; i++) {levelNodes(root, i);}
+	}
+	
+	public void levelNodes(Tree_Node root, int level) {
+		if (root == null) {return;}
+	    if (level == 1) {System.out.print(" " + root.data);}
+	    else if (level > 1) {
+	    	    levelNodes(root.left, level - 1);
+	    	    levelNodes(root.right, level - 1);
+	    }
+	}
+	
+	public int getHeight(Tree_Node root) {
+		if (root == null) {return 0;}
+		int leftHeight = getHeight(root.left);
+		int rightHeight = getHeight(root.right);
+		return Math.max(leftHeight, rightHeight) + 1;
 	}
 	
 	public Tree_Node search_iterative(Tree_Node root, int key) {
@@ -150,7 +173,7 @@ public class Binary_Search_Tree {
 				// if right child exists and traversing node
 			    // from left child, then move right
 			     if (peekNode.right != null && lastNodeVisited != peekNode.right) {
-			    	     root  = peekNode.right;
+			    	     root = peekNode.right;
 			     }
 			     else {
 			    	     System.out.print(" " + peekNode.data);
