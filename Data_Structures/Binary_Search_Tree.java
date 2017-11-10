@@ -6,7 +6,15 @@ import java.util.Queue;
 
 /*
  * A representation of binary search tree (BST), with search, insert, delete,
- * pre-order, in-order and post-order traversal methods.
+ * DFS traversal of pre-order, in-order, post-order and BFS traversal of level-order.
+ */
+
+/*
+ * BFS - visit all children, then grandchildren, then great-grandchildren, etc..
+ * DFS - visit a child, then that child's child and so forth, 
+ * when you reach as far as you can go via a child, x,  
+ * you move back up a level and continue the process with the sibling of x (call it y),
+ * includes pre-order, in-order and post-order.
  */
 
 public class Binary_Search_Tree {
@@ -21,7 +29,7 @@ public class Binary_Search_Tree {
 //		System.out.println(bst.search_iterative(root, 3));
 //		bst.preorder(root);
 //		System.out.println();
-		bst.preorder_BFS(root);
+		bst.levelorder_BFS(root);
 //		System.out.println();
 //		bst.postorder(root);
 	}
@@ -150,7 +158,7 @@ public class Binary_Search_Tree {
 		}
 	}
 	
-	public void preorder_BFS(Tree_Node root) {
+	public void levelorder_BFS(Tree_Node root) {
 		if (root == null) {return;}
 		Queue<Tree_Node> q = new LinkedList<>();
 		q.add(root);
@@ -159,7 +167,6 @@ public class Binary_Search_Tree {
 			System.out.print(" " + node.data);
 		    if (node.left != null) {q.add(node.left);}
 		    if (node.right != null) {q.add(node.right);}
-		}
-		    
+		}	    
 	}
 }
