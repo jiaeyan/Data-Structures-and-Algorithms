@@ -107,6 +107,8 @@ public class Binary_Search_Tree {
 		return root;
 	}
 	
+	public Tree_Node delete_iterative(Tree_Node root, int key) {return root;}
+	
 	public void preorder_DFS(Tree_Node root) {
 		if (root == null) {return;}
 		Stack<Tree_Node> st = new Stack<>();
