@@ -92,19 +92,7 @@ public class Heap {
 			return;
 		}
 		this.arr[i] -= value;
-		int l = 2 * i + 1;
-		int r = 2 * i + 2;
-		int max = i;
-		if (l < this.size && this.arr[l] > this.arr[i]) {
-			max = l;
-		}
-		if (r < this.size && this.arr[r] > this.arr[max]) {
-			max = r;
-		}
-		if (max != i) {
-			swap(max, i);
-			MaxHeapify(max);
-		} 
+		MaxHeapify(i);
 	}
 	
 	//delete given position node. First make it to the top, then extract it, so the heap will still be balanced.
