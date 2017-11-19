@@ -1,18 +1,18 @@
 package data_structures;
 
-public class Tree_Node {
+public class BST_Node {
 
 	int data;
-	Tree_Node left;
-	Tree_Node right;
+	BST_Node left;
+	BST_Node right;
 	
-	public Tree_Node(int data) {
+	public BST_Node(int data) {
 		this.data = data;
 		this.left = null;
 		this.right = null;
 	}
 	
-	public Tree_Node(int data, Tree_Node left, Tree_Node right) {
+	public BST_Node(int data, BST_Node left, BST_Node right) {
 		this.data = data;
 		this.left = left;
 		this.right = right;
