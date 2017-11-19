@@ -1,5 +1,9 @@
 package data_structures;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+
 public class Trie {
 
     // Returns the node which contains the whole prefix
@@ -36,6 +40,19 @@ public class Trie {
 		temp.isLeaf = true;
 	}
 	
+	//Display all words in given tire.
+	public void showWords(Trie_Node root, StringBuilder sb, List<String> list){
+		if (root == null) return;
+		for (Map.Entry<Character, Trie_Node> entry : root.children.entrySet()) {
+			Character ch = entry.getKey();
+			Trie_Node node = entry.getValue();
+			sb.append(ch);
+			if (node.isLeaf) list.add(sb.toString());
+			showWords(node, sb, list);
+			sb.deleteCharAt(sb.length()-1);
+		}
+	}
+	
 	public static void main(String[] args) {
 		Trie t = new Trie();
 		Trie_Node root = new Trie_Node();
@@ -49,6 +66,10 @@ public class Trie {
 		System.out.println(t.search(root, "test"));
 		System.out.println(t.search(root, "testment"));
 		System.out.println(t.start(root, "testmen"));
+		StringBuilder sb = new StringBuilder();
+		List<String> list = new ArrayList<>();
+		t.showWords(root, sb, list);
+		for (String str:list) {System.out.println(str);}
 	}
 
 }
