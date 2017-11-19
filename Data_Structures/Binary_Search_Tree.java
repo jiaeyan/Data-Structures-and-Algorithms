@@ -21,7 +21,7 @@ public class Binary_Search_Tree {
 	
 	public static void main(String[] args) {
 		Binary_Search_Tree bst = new Binary_Search_Tree();
-		Tree_Node root = new Tree_Node(8, new Tree_Node(3, new Tree_Node(1), new Tree_Node(6, new Tree_Node(4), new Tree_Node(7))), new Tree_Node(10, null, new Tree_Node(14, new Tree_Node(13), null)));
+		BST_Node root = new BST_Node(8, new BST_Node(3, new BST_Node(1), new BST_Node(6, new BST_Node(4), new BST_Node(7))), new BST_Node(10, null, new BST_Node(14, new BST_Node(13), null)));
 //		System.out.println(bst.search_iterative(root, 6));
 //		System.out.println(bst.search_iterative(root, 4));
 		bst.insert_iterative(root, 15);
@@ -36,7 +36,7 @@ public class Binary_Search_Tree {
 //		bst.postorder(root);
 	}
 	
-	public Tree_Node search_recursive(Tree_Node root, int key) {
+	public BST_Node search_recursive(BST_Node root, int key) {
 		if (root == null || key == root.data) {return root;}
 		if (key > root.data) {return search_recursive(root.right, key);}
 		if (key < root.data) {return search_recursive(root.left, key);}
@@ -44,8 +44,8 @@ public class Binary_Search_Tree {
 	}
 	
 	//A new key is always inserted at leaf. 
-	public Tree_Node insert_recursive(Tree_Node root, int key) {
-		if (root == null) {root = new Tree_Node(key);}
+	public BST_Node insert_recursive(BST_Node root, int key) {
+		if (root == null) {root = new BST_Node(key);}
 		else {                    //add node to either branch, if "{return insert_recursive()}", only returns the child at last
 			if (key > root.data) {root.right = insert_recursive(root.right, key);}
 			else if (key < root.data) {root.left = insert_recursive(root.left, key);}
@@ -54,9 +54,9 @@ public class Binary_Search_Tree {
 		return root;
 	}
 	
-	public Tree_Node delete_recursive(Tree_Node root, int key) {return root;}
+	public BST_Node delete_recursive(BST_Node root, int key) {return root;}
 	
-	public void preorder_recursive(Tree_Node root){
+	public void preorder_recursive(BST_Node root){
 		if(root != null){
 			System.out.print(" " + root.data);
 			preorder_recursive(root.left);
@@ -65,7 +65,7 @@ public class Binary_Search_Tree {
 	}
 	
 	//Retrieves data in sorted order.
-	public void inorder_recursive(Tree_Node root) {
+	public void inorder_recursive(BST_Node root) {
 		if(root != null){
 			inorder_recursive(root.left);
 			System.out.print(" " + root.data);
@@ -73,7 +73,7 @@ public class Binary_Search_Tree {
 		}
 	}
 	
-	public void postorder_recursive(Tree_Node root){
+	public void postorder_recursive(BST_Node root){
 		if(root != null){
 			postorder_recursive(root.left);
 			postorder_recursive(root.right);
@@ -81,12 +81,12 @@ public class Binary_Search_Tree {
 		}
 	}
 	
-	public void levelorder_recursive(Tree_Node root) {
+	public void levelorder_recursive(BST_Node root) {
 		int h = getHeight(root);
         for (int i = 1; i <= h; i++) {levelNodes(root, i);}
 	}
 	
-	public void levelNodes(Tree_Node root, int level) {
+	public void levelNodes(BST_Node root, int level) {
 		if (root == null) {return;}
 	    if (level == 1) {System.out.print(" " + root.data);}
 	    else if (level > 1) {
@@ -95,15 +95,15 @@ public class Binary_Search_Tree {
 	    }
 	}
 	
-	public int getHeight(Tree_Node root) {
+	public int getHeight(BST_Node root) {
 		if (root == null) {return 0;}
 		int leftHeight = getHeight(root.left);
 		int rightHeight = getHeight(root.right);
 		return Math.max(leftHeight, rightHeight) + 1;
 	}
 	
-	public Tree_Node search_iterative(Tree_Node root, int key) {
-		Tree_Node curr = root;
+	public BST_Node search_iterative(BST_Node root, int key) {
+		BST_Node curr = root;
 		while (curr != null) {
 			if (key == curr.data) {return curr;}
 			if (key > curr.data) {curr = curr.right;}
@@ -112,11 +112,11 @@ public class Binary_Search_Tree {
 		return curr;
 	}
 	
-	public Tree_Node insert_iterative(Tree_Node root, int key) {
-		if (root == null) {root = new Tree_Node(key);}
+	public BST_Node insert_iterative(BST_Node root, int key) {
+		if (root == null) {root = new BST_Node(key);}
 		else {
-			Tree_Node parent = null;
-			Tree_Node curr = root;
+			BST_Node parent = null;
+			BST_Node curr = root;
 			// find the appropriate leaf?? (doesn't have to be) to insert node
 			while (curr != null) {
 				parent = curr;
@@ -124,20 +124,20 @@ public class Binary_Search_Tree {
 				else if (key < curr.data) {curr = curr.left;}
 				else {return root;}
 			}
-			if (key > parent.data) {parent.right = new Tree_Node(key);}
-			else {parent.left = new Tree_Node(key);}
+			if (key > parent.data) {parent.right = new BST_Node(key);}
+			else {parent.left = new BST_Node(key);}
 		}
 		return root;
 	}
 	
-	public Tree_Node delete_iterative(Tree_Node root, int key) {return root;}
+	public BST_Node delete_iterative(BST_Node root, int key) {return root;}
 	
-	public void preorder_DFS(Tree_Node root) {
+	public void preorder_DFS(BST_Node root) {
 		if (root == null) {return;}
-		Stack<Tree_Node> st = new Stack<>();
+		Stack<BST_Node> st = new Stack<>();
 		st.push(root);
 		while (!st.isEmpty()) {
-			Tree_Node node = st.pop();
+			BST_Node node = st.pop();
 			System.out.print(" " + node.data);
 			//right child is pushed first so that left is processed first
 			if (node.right != null) {st.push(node.right);}
@@ -145,31 +145,31 @@ public class Binary_Search_Tree {
 		}
 	}
 	
-	public void inorder_DFS(Tree_Node root) {
-		Stack<Tree_Node> st = new Stack<>();
+	public void inorder_DFS(BST_Node root) {
+		Stack<BST_Node> st = new Stack<>();
 		while (!st.isEmpty() || root != null) {
 			if (root != null) {
 				st.push(root);
 				root = root.left;
 			}
 			else {
-				Tree_Node node = st.pop();
+				BST_Node node = st.pop();
 				System.out.print(" " + node.data);
 				root = node.right;
 			}
 		}
 	}
 	
-	public void postorder_DFS(Tree_Node root) {
-		Stack<Tree_Node> st = new Stack<>();
-		Tree_Node lastNodeVisited = null;
+	public void postorder_DFS(BST_Node root) {
+		Stack<BST_Node> st = new Stack<>();
+		BST_Node lastNodeVisited = null;
 		while (!st.isEmpty() || root != null) {
 			if (root != null) {
 				st.push(root);
 				root = root.left;
 			}
 			else {
-				Tree_Node peekNode = st.peek();
+				BST_Node peekNode = st.peek();
 				// if right child exists and traversing node
 			    // from left child, then move right
 			     if (peekNode.right != null && lastNodeVisited != peekNode.right) {
@@ -183,12 +183,12 @@ public class Binary_Search_Tree {
 		}
 	}
 	
-	public void levelorder_BFS(Tree_Node root) {
+	public void levelorder_BFS(BST_Node root) {
 		if (root == null) {return;}
-		Queue<Tree_Node> q = new LinkedList<>();
+		Queue<BST_Node> q = new LinkedList<>();
 		q.add(root);
 		while (!q.isEmpty()) {
-			Tree_Node node = q.remove();
+			BST_Node node = q.remove();
 			System.out.print(" " + node.data);
 		    if (node.left != null) {q.add(node.left);}
 		    if (node.right != null) {q.add(node.right);}
