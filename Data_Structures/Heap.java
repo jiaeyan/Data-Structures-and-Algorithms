@@ -2,8 +2,8 @@ package data_structures;
 
 /*
  * This is a max heap. Min heap is the same idea.
- * Arr[0] returns the root node
- * Arr[i-1/2]	Returns the parent node
+ * Arr[0]       Returns the root node
+ * Arr[(i-1)/2]	Returns the parent node
  * Arr[(2*i)+1]	Returns the left child node
  * Arr[(2*i)+2]	Returns the right child node
  * Traverse in level order
