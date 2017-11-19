@@ -20,7 +20,7 @@ public class Trie {
 	// Returns if the word is in the trie.
 	public boolean search(Trie_Node root, String word) {
 		Trie_Node node = prefix(root, word);
-		return node != null && node.isLeaf;
+		return node != null && node.isEnd;
 	}
 	
 	// Returns if there is any word in the trie
@@ -37,8 +37,10 @@ public class Trie {
 				temp.children.put(ch, new Trie_Node(ch));
 			temp = temp.children.get(ch);
 		}
-		temp.isLeaf = true;
+		temp.isEnd = true;
 	}
+	
+	public void delete(Trie_Node root, String word) {}
 	
 	//Display all words in given tire.
 	public void showWords(Trie_Node root, StringBuilder sb, List<String> list){
@@ -47,7 +49,7 @@ public class Trie {
 			Character ch = entry.getKey();
 			Trie_Node node = entry.getValue();
 			sb.append(ch);
-			if (node.isLeaf) list.add(sb.toString());
+			if (node.isEnd) list.add(sb.toString());
 			showWords(node, sb, list);
 			sb.deleteCharAt(sb.length()-1);
 		}
