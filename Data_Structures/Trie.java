@@ -63,7 +63,7 @@ public class Trie {
 				return root.children.size() == 0;
 			}
 			Trie_Node child = root.children.get(word.charAt(0));
-			if (deleteHelper(child, endNode, word.substring(1, word.length()))) {
+			if (deleteHelper(child, endNode, word.substring(1, word.length()))) { //go one level deeper
 				root.children.remove(child.c);
 				return !root.isEnd && root.children.size() == 0; //if child is deleted, then check current node: if isEnd, current node is shared with other key, cannot be deleted; if has other children, shared with other key, cannot be deleted, when both fail, current node can be deleted
 			}
