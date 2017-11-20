@@ -1,9 +1,5 @@
 package data_structures;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-
 public class Trie {
 
     // Returns the node which contains the whole prefix
@@ -40,38 +36,63 @@ public class Trie {
 		temp.isEnd = true;
 	}
 	
-	public void delete(Trie_Node root, String word) {}
+	//should check the coverage of target word in current trie
+	public void delete(Trie_Node root, String word) {
+		if (word.length() == 0 || word == null) {return;}
+		Trie_Node endNode = prefix(root, word); //this is the end node of the word in the trie
+		if (endNode == null || !endNode.isEnd) {
+			System.out.println("Error: no such word in current trie.");
+			return;
+		}
+		deleteHelper(root, endNode, word);
+	}
+	
+	/*
+	 * We delete a node by removing it from its parent's children list.
+	 * So when we find a node that is deletable, we still have to go up to
+	 * its parent to remove it, so the function is: we have a node now, we want
+	 * to check if its next child can be deleted or not. If yes, delete it from
+	 * children list, otherwise keep it, and tell the parent node of current node
+	 * if current node can be deleted or not.
+	 * http://www.ideserve.co.in/learn/trie-delete
+	 */
+	public boolean deleteHelper(Trie_Node root, Trie_Node endNode, String word) {
+//		if (root != null) { //if endNode != null, then root & its descents will never be null
+			if (root.equals(endNode)) {  // when reach the end, check if it can be deleted, if no children, delete it; otherwise other keys share this end, cannot delete it
+				root.isEnd = false;      // the last char stands for the whole word, deleting the word means unmarking the end label
+				return root.children.size() == 0;
+			}
+			Trie_Node child = root.children.get(word.charAt(0));
+			if (deleteHelper(child, endNode, word.substring(1, word.length()))) {
+				root.children.remove(child.c);
+				return !root.isEnd && root.children.size() == 0; //if child is deleted, then check current node: if isEnd, current node is shared with other key, cannot be deleted; if has other children, shared with other key, cannot be deleted, when both fail, current node can be deleted
+			}
+			else return false; //if child is not deleted, the child must be shared with other key, current node cannot be deleted 
+//		}
+//		return false;
+	}
 	
 	//Display all words in given tire.
-	public void showWords(Trie_Node root, StringBuilder sb, List<String> list){
-		if (root == null) return;
-		for (Map.Entry<Character, Trie_Node> entry : root.children.entrySet()) {
-			Character ch = entry.getKey();
-			Trie_Node node = entry.getValue();
-			sb.append(ch);
-			if (node.isEnd) list.add(sb.toString());
-			showWords(node, sb, list);
-			sb.deleteCharAt(sb.length()-1);
-		}
+	public void showWords(Trie_Node root){
+		System.out.println(root.toString());
 	}
 	
 	public static void main(String[] args) {
 		Trie t = new Trie();
 		Trie_Node root = new Trie_Node();
-		String[] strs = new String[] {"this", "is", "a", "test", "testment"};
+		String[] strs = new String[] {"angle", "angel", "this", "is", "a", "test", "tested", "testment"};
 		for (String str:strs) {t.insert(root, str);}
-		System.out.println(t.search(root, "an"));
+//		System.out.println(t.search(root, "an"));
 		t.insert(root, "an");
-		System.out.println(t.search(root, "an"));
+//		System.out.println(t.search(root, "an"));
 		t.insert(root, "is");
-		System.out.println(t.search(root, "this"));
-		System.out.println(t.search(root, "test"));
-		System.out.println(t.search(root, "testment"));
-		System.out.println(t.start(root, "testmen"));
-		StringBuilder sb = new StringBuilder();
-		List<String> list = new ArrayList<>();
-		t.showWords(root, sb, list);
-		for (String str:list) {System.out.println(str);}
+//		System.out.println(t.search(root, "this"));
+//		System.out.println(t.search(root, "test"));
+//		System.out.println(t.search(root, "testment"));
+//		System.out.println(t.start(root, "testmen"));
+		t.delete(root, "test");
+		t.delete(root, "ang");
+		t.showWords(root);
 	}
 
 }
