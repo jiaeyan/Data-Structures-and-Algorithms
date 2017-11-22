@@ -5,7 +5,7 @@ public class Trie {
     // Returns the node which contains the whole prefix
 	public Trie_Node prefix(Trie_Node root, String prefix) {
 		Trie_Node temp = root;
-		for (char ch : prefix.toCharArray()) {
+		for (char ch : prefix.toCharArray()) {         //for each char in the prefix
 			if (temp.children.get(ch) != null)
 				temp = temp.children.get(ch);  //one char is one level in the tree, so we have to get down by temp = temp.children
 			else return null;
