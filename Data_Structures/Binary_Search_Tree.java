@@ -19,23 +19,6 @@ import java.util.Queue;
 
 public class Binary_Search_Tree {
 	
-	public static void main(String[] args) {
-		Binary_Search_Tree bst = new Binary_Search_Tree();
-		BST_Node root = new BST_Node(8, new BST_Node(3, new BST_Node(1), new BST_Node(6, new BST_Node(4), new BST_Node(7))), new BST_Node(10, null, new BST_Node(14, new BST_Node(13), null)));
-//		System.out.println(bst.search_iterative(root, 6));
-//		System.out.println(bst.search_iterative(root, 4));
-		bst.insert_iterative(root, 15);
-//		bst.preorder_DFS(root);
-//		System.out.println(bst.search_iterative(root, 3));
-//		bst.preorder(root);
-//		System.out.println();
-		bst.levelorder_BFS(root);
-//		System.out.println(bst.getHeight(root));
-		bst.levelorder_recursive(root);
-//		System.out.println();
-//		bst.postorder(root);
-	}
-	
 	public BST_Node search_recursive(BST_Node root, int key) {
 		if (root == null || key == root.data) {return root;}
 		if (key > root.data) {return search_recursive(root.right, key);}
@@ -83,23 +66,78 @@ public class Binary_Search_Tree {
 	
 	public void levelorder_recursive(BST_Node root) {
 		int h = getHeight(root);
-        for (int i = 1; i <= h; i++) {levelNodes(root, i);}
+        for (int i = 0; i <= h; i++) {levelNodes(root, i);}
 	}
 	
 	public void levelNodes(BST_Node root, int level) {
 		if (root == null) {return;}
-	    if (level == 1) {System.out.print(" " + root.data);}
-	    else if (level > 1) {
+	    if (level == 0) {System.out.print(" " + root.data);}
+	    else if (level > 0) {
 	    	    levelNodes(root.left, level - 1);
 	    	    levelNodes(root.right, level - 1);
 	    }
 	}
 	
+    //Recursively calculate height of left and right subtrees of a node and 
+	//assign height to the node as max of the heights of two children plus 1.
+	//Height is the number of edges, so when one level up, + 1.
 	public int getHeight(BST_Node root) {
-		if (root == null) {return 0;}
+		if (root == null) {return -1;}                //empty node's height = -1, while single node's height = 0
 		int leftHeight = getHeight(root.left);
 		int rightHeight = getHeight(root.right);
-		return Math.max(leftHeight, rightHeight) + 1;
+		return Math.max(leftHeight, rightHeight) + 1; //+1 because of going up one edge, rather than add the root itself
+	}
+	
+	//The diameter of a tree (sometimes called the width) is the number of nodes 
+	//on the longest path between two leaves in the tree.
+	//The diameter of a tree T is the largest of the following quantities:
+	//* the diameter of T’s left subtree
+	//* the diameter of T’s right subtree
+	//* the longest path between leaves that goes through the root of T
+	//(this can be computed from the heights of the subtrees of T)
+	//Each node in T can be considered as root and do the same, thus the diameter
+	//of that subtree is a computation of heights of left and right children.
+	//Note, the diameter will always pass some node and be the sum of its left and
+	//right heights (even when it only has one child), and by height it's already the longest
+	//path from leave to certain node, thus, we can directly 
+	//set a variable max to record the max diameter of each node along the way to root,
+	//at last the returned value will be the diameter.
+	public int getDiameter(BST_Node root) {
+		return diameter(root, new int[] {0, 0})[0];
+	}
+	
+	/*
+	 * This approach is a variation of getHeight().
+	 * We use array int[] info to record max diameter encountered so far at index 0,
+	 * and higher height between left and right heights of current node at index 1.
+	 */
+	public int[] diameter(BST_Node node, int[] info) {                 //just interpret "diameter" here as height
+		if (node == null) return new int[] {0, -1};                    //empty node's height = -1, while single node's height = 0
+		int leftDiameter = diameter(node.left, info)[1];               //left height, already the longest path from some leaf to node
+		int rightDiameter = diameter(node.right, info)[1];             //right height
+		info[0] = Math.max(info[0], leftDiameter + rightDiameter + 2); //the diameter of current node = left height + right height + 2 edges around current node
+		info[1] = Math.max(leftDiameter, rightDiameter) + 1;           //one level up, so + 1
+		return info;
+	}
+	
+	//Find the level with the biggest number of nodes, return that number.
+	//This approach is a variation of BFS traversal with queue.
+	public int getWidth(BST_Node root) {
+		if (root == null) {return -1;}
+		Queue<BST_Node> q = new LinkedList<>();
+		int max = 0;
+		q.add(root);
+		while (!q.isEmpty()) {
+			int count = q.size();
+			max = Math.max(max, count);
+			while (count > 0) {  //when the count = 0, all nodes from last level are gone, remaining all next level nodes
+				BST_Node node = q.remove();
+			    if (node.left != null) {q.add(node.left);}
+			    if (node.right != null) {q.add(node.right);}
+			    count--;
+			}
+		}
+		return max;
 	}
 	
 	public BST_Node search_iterative(BST_Node root, int key) {
@@ -193,5 +231,26 @@ public class Binary_Search_Tree {
 		    if (node.left != null) {q.add(node.left);}
 		    if (node.right != null) {q.add(node.right);}
 		}	    
+	}
+	
+	public static void main(String[] args) {
+		Binary_Search_Tree bst = new Binary_Search_Tree();
+		BST_Node root = new BST_Node(8, new BST_Node(3, new BST_Node(1), new BST_Node(6, new BST_Node(4), new BST_Node(7))), new BST_Node(10, null, new BST_Node(14, new BST_Node(13), null)));
+//		BST_Node root = new BST_Node(1);
+		System.out.println(bst.getDiameter(root));
+//		System.out.println(bst.search_iterative(root, 6));
+//		System.out.println(bst.search_iterative(root, 4));
+		bst.insert_iterative(root, 15);
+//		bst.preorder_DFS(root);
+		System.out.println(bst.getDiameter(root));
+		System.out.println(bst.getWidth(root));
+//		System.out.println(bst.search_iterative(root, 3));
+//		bst.preorder(root);
+//		System.out.println();
+//		bst.levelorder_BFS(root);
+//		System.out.println(bst.getHeight(root));
+//		bst.levelorder_recursive(root);
+//		System.out.println();
+//		bst.postorder(root);
 	}
 }
