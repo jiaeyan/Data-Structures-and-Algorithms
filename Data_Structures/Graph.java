@@ -18,18 +18,37 @@ public class Graph {
 		this.adjList = new HashMap<>();
 	}
 	
+	//add unweighted indirected edge
 	public void addEdge(Vertex src, Vertex dest) {
+		checkVertex(src, dest);
+		this.adjList.get(src).add(dest);
+		this.adjList.get(dest).add(src);
+	}
+	
+	//add unweighted directed edge
+	public void addDEdge(Vertex src, Vertex dest) {
+		checkVertex(src, dest);
+		this.adjList.get(src).add(dest);	
+	}
+	
+	//add weighted indirected edge
+	public void addWEdge(Vertex src, Vertex dest, int weight) {
+		addEdge(src, dest);
+		src.wneighbors.put(dest, weight);
+		dest.wneighbors.put(src, weight);
+	}
+	
+	//add weighted directed  edge
+	public void addWDEdge(Vertex src, Vertex dest, int weight) {
+		addDEdge(src, dest);
+		src.wneighbors.put(dest, weight);
+	}
+	
+	public void checkVertex(Vertex src, Vertex dest) {
 		if (!this.adjList.containsKey(src)) 
 			this.adjList.put(src, new LinkedList<>());
 		if (!this.adjList.containsKey(dest))           
 			this.adjList.put(dest, new LinkedList<>());
-		this.adjList.get(src).add(dest);	
-//		this.adjList.get(dest).add(src);  //comment out these lines if undirected graph is needed
-	}
-	
-	public void addWeightEdge(Vertex src, Vertex dest, int weight) {
-		addEdge(src, dest);
-		src.wneighbors.put(dest, weight);
 	}
 	
 	//space save, the size of stack is the depth of the tree/graph,
