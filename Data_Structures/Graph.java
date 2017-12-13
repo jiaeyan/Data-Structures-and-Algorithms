@@ -12,7 +12,7 @@ import java.util.Stack;
 
 public class Graph {
 	
-	private Map<Vertex, List<Vertex>> adjList;
+	Map<Vertex, List<Vertex>> adjList;
 	
 	public Graph() {
 		this.adjList = new HashMap<>();
@@ -25,6 +25,11 @@ public class Graph {
 			this.adjList.put(dest, new LinkedList<>());
 		this.adjList.get(src).add(dest);	
 //		this.adjList.get(dest).add(src);  //comment out these lines if undirected graph is needed
+	}
+	
+	public void addWeightEdge(Vertex src, Vertex dest, int weight) {
+		addEdge(src, dest);
+		src.wneighbors.put(dest, weight);
 	}
 	
 	//space save, the size of stack is the depth of the tree/graph,
@@ -95,7 +100,6 @@ public class Graph {
 		return false;
 	}
 	
-	
 	public static void main(String[] args) {
 		Graph g = new Graph();
 		Vertex v1 = new Vertex(1);
@@ -111,7 +115,7 @@ public class Graph {
 		g.addEdge(v3, v6);
 		g.addEdge(v6, v5);
 		g.addEdge(v5, v1);
-		System.out.println(g.IDDFS(v1, v2, 2));
+//		System.out.println(g.IDDFS(v1, v2, 2));
 //		g.DFS_recursive(v1);
 //		g.DFS_iterative(v1);
 //		g.BFS_iterative(v1);
