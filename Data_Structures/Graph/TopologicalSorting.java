@@ -35,6 +35,7 @@ public class TopologicalSorting {
 	 * vertices having no out-going edges). Do this bottom-up,
 	 * the top ones will be the ones that have no in-coming edges. 
 	 * 
+	 * Kahn's:
 	 * Another approach is to maintain a set of nodes that
 	 * have no in-coming edges, level by level find their children.
 	 */
