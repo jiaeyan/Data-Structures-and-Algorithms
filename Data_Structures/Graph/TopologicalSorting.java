@@ -26,6 +26,7 @@ public class TopologicalSorting {
 	}
 	
 	/*
+	 * DFS based:
 	 * Iterate over each unseen node, mark as seen,
 	 * then iterate over all its neighbors recursively,
 	 * until reach a vertex has no out-going edges,
