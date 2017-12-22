@@ -7,18 +7,24 @@ import java.util.List;
 import java.util.Set;
 
 /*
+ * Type:
+ * Greedy algorithm.
+ * 
  * Goal:
- * find the shortest path with minimum cost from one vertex to another in a graph.
+ * Find the shortest path with minimum cost from one vertex to another in a graph.
  * 
  * Assumption:
- * 1. the graph is complete connected, meaning each vertex is connected with at least one vertex.
- * 2. each vertex has only one best previous vertex, 
- * meaning if same path cost from two vertices, choose one randomly.
- * 3. the cost is positive
+ * 1. The graph is complete connected, meaning each vertex is connected with at least one vertex.
+ * 2. Each vertex has only one best previous vertex, 
+ *    meaning if same path cost from two vertices, choose one randomly.
+ * 3. The cost is positive.
+ * 4. No self loop.
+ * 5. No doubled edges.
+ * 6. Either directed or indirected.
  * 
  * Complexity: 
- * 1. linear search in unseen set Q: O(|E|+|V|^2) = O(|V|^2).
- * 2. binary heap search in unseen set Q: O((E + V)logV)
+ * 1. Linear search in unseen set Q: O(|V|^2): search a min vertex in a set, then go through all its neighbors
+ * 2. Binary heap search in unseen set Q: O((E + V)logV).
  */
 
 public class Dijkstra {
@@ -31,7 +37,7 @@ public class Dijkstra {
 	
 	public List<Vertex> ShortestPath(Vertex src, Vertex dest) {
 		ShortestPathTree(src);
-		return showPath(dest);
+		return backtrace(dest);
 	}
 	
 	/*
@@ -50,13 +56,13 @@ public class Dijkstra {
 			}
 		}
 		
+		//This s will always be the source for next operation.
+		//Always start from the vertex that has minimum current cost.
+		//But still have to iterate over all vertices to mark their final minimum cost.
+		//Since every extracted vertex already has the minimum current path cost from source,
+		//there is no need to reconsider other possibility for it, so kick it out
+		//from the unseen set, so will not modify its path cost later on.
 		while (!Q.isEmpty()) {
-			//This s will always be the source for next operation.
-			//Always start from the vertex that has minimum current cost.
-			//But still have to iterate over all vertices to mark their final minimum cost.
-			//Since every extracted vertex already has the minimum current path cost from source,
-			//there is no need to reconsider other possibility for it, so kick it out
-			//from the unseen set, so will not modify its path cost later on.
 			Vertex s = findMin(Q);
 			//if (s.equals(dest)) return; if only need to traverse to dest vertex
 			for (Vertex v:G.adjList.get(s)) {
@@ -78,9 +84,6 @@ public class Dijkstra {
 	 * then shuffle the queue every time when the cost of a vertex decreases.
 	 */
 	public Vertex findMin(Set<Vertex> Q) {
-//		Queue<Vertex> Q = new PriorityQueue<>(new Comparator<Vertex>() {
-//		public int compare(Vertex v1, Vertex v2) {return v1.value - v2.value;}
-//	});
 		Vertex target = null;
 		int min = Integer.MAX_VALUE;
 		for (Vertex v:Q) {
@@ -93,7 +96,7 @@ public class Dijkstra {
 		return target;
 	}
 	
-	public List<Vertex> showPath(Vertex v) {
+	public List<Vertex> backtrace(Vertex v) {
 		List<Vertex> path = new ArrayList<>(Arrays.asList(new Vertex[]{v}));
 		while(v.prev != null) {
 			path.add(0, v.prev);
