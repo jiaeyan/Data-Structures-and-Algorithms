@@ -1,8 +1,10 @@
 package graph;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 /*
  * Type:
@@ -83,9 +85,23 @@ public class BellmanFord {
 				int w = entry.getValue();
 				if (v.cost + w < u.cost) {
 					System.out.println("Graph contains negative weight cycle");
+					printNegCycle(u);
+					System.out.println();
 				}
 			}
 		}
+	}
+	
+	public void printNegCycle(Vertex dest) {
+		Set<Vertex> seen = new HashSet<>();
+		List<Vertex> cycle = new ArrayList<>();
+		while (!seen.contains(dest)) {
+			cycle.add(0, dest);
+			seen.add(dest);
+			dest = dest.prev;
+		}
+		for (Vertex v:cycle) 
+			System.out.println(v.value);
 	}
 	
 	public List<Vertex> backtrace(Vertex src, Vertex dest) {
@@ -111,24 +127,24 @@ public class BellmanFord {
 		Vertex v4 = new Vertex(4);
 		Vertex v5 = new Vertex(5);
 		Vertex v6 = new Vertex(6);
-		g.addWDEdge(v1, v2, 5);
-		g.addWDEdge(v1, v3, -2);
-		g.addWDEdge(v2, v4, 1);
-		g.addWDEdge(v3, v2, 2);
-		g.addWDEdge(v4, v3, 2);
-		g.addWDEdge(v3, v5, 3);
-		g.addWDEdge(v4, v5, 7);
-		g.addWDEdge(v4, v6, 3);
-		g.addWDEdge(v5, v6, 10);
+//		g.addWDEdge(v1, v2, 5);
+//		g.addWDEdge(v1, v3, -2);
+//		g.addWDEdge(v2, v4, 1);
+//		g.addWDEdge(v3, v2, 2);
+//		g.addWDEdge(v4, v3, 2);
+//		g.addWDEdge(v3, v5, 3);
+//		g.addWDEdge(v4, v5, 7);
+//		g.addWDEdge(v4, v6, 3);
+//		g.addWDEdge(v5, v6, 10);
 		
-//		g.addWDEdge(v1, v2, -10);
-//		g.addWDEdge(v2, v3, 3);
-//		g.addWDEdge(v2, v4, -5);
-//		g.addWDEdge(v3, v4, -8);
-//		g.addWDEdge(v3, v6, 4);
-//		g.addWDEdge(v4, v6, 5);
-//		g.addWDEdge(v6, v5, -1);
-//		g.addWDEdge(v5, v1, 7);
+		g.addWDEdge(v1, v2, -10);
+		g.addWDEdge(v2, v3, 3);
+		g.addWDEdge(v2, v4, -5);
+		g.addWDEdge(v3, v4, -8);
+		g.addWDEdge(v3, v6, 4);
+		g.addWDEdge(v4, v6, 5);
+		g.addWDEdge(v6, v5, -1);
+		g.addWDEdge(v5, v1, 7);
 		BellmanFord b = new BellmanFord(g);
 		for (Vertex v:b.ShortestPath(v1, v6))
 			System.out.println(v.value);
