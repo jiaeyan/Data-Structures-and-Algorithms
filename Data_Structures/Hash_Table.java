@@ -1,3 +1,4 @@
+package data_structures;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,29 +13,15 @@ public class Hash_Table {
 	private int size;
 	private Hash_Item[] arr;
 	private static double LOAD_FACTOR = 0.65;
+	
+	public class Hash_Item {
+		int key;
+		int value;
 
-	public static void main(String[] args) {
-		Hash_Table ht = new Hash_Table(2);
-		System.out.println(ht.remove(1));
-		ht.put(152,3);
-		ht.put(5234,80);
-		ht.put(52345,800);
-		System.out.println(ht.capacity);
-		System.out.println(ht.search(5234));
-		System.out.println(ht.hasKey(5234));
-		System.out.println(ht.hasValue(80));
-		System.out.println(ht.get(152));
-		System.out.println(ht.search(5234));
-		ht.put(152,10);
-		System.out.println(ht.search(152));
-		System.out.println(ht.get(152));
-		System.out.println(ht.remove(152));
-		System.out.println(ht.get(152));
-		System.out.println(ht.remove(12));
-		System.out.println(ht.size);
-		ht.put(152,3);
-		System.out.println(ht.get(152));
-		System.out.println(ht.hasValue(800));
+		public Hash_Item(int key, int value) {
+			this.key = key;
+			this.value = value;
+		}
 	}
 	
 	public Hash_Table(int capacity) {
@@ -152,5 +139,29 @@ public class Hash_Table {
 	
 	public boolean isEmpty() {
 		return this.size == 0;
+	}
+	
+	public static void main(String[] args) {
+		Hash_Table ht = new Hash_Table(2);
+		System.out.println(ht.remove(1));
+		ht.put(152,3);
+		ht.put(5234,80);
+		ht.put(52345,800);
+		System.out.println(ht.capacity);
+		System.out.println(ht.search(5234));
+		System.out.println(ht.hasKey(5234));
+		System.out.println(ht.hasValue(80));
+		System.out.println(ht.get(152));
+		System.out.println(ht.search(5234));
+		ht.put(152,10);
+		System.out.println(ht.search(152));
+		System.out.println(ht.get(152));
+		System.out.println(ht.remove(152));
+		System.out.println(ht.get(152));
+		System.out.println(ht.remove(12));
+		System.out.println(ht.size);
+		ht.put(152,3);
+		System.out.println(ht.get(152));
+		System.out.println(ht.hasValue(800));
 	}
 }
