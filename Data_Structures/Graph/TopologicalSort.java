@@ -45,15 +45,21 @@ public class TopoSort {
 	 * vertices having no out-going edges). Do this bottom-up,
 	 * the top ones will be the ones that have no in-coming edges. 
 	 */
-	public void DFS_sort() {
+	public List<Vertex> DFS_sort() {
 		Stack<Vertex> s = new Stack<>();
+		List<Vertex> res = new ArrayList<>();
+		
 		for(Vertex v:G.adjList.keySet()) {
 			if(!v.seen)
 				visit(v, s);
 		}
 		
-		while(!s.isEmpty()) 
-			System.out.println(s.pop().value);
+		while(!s.isEmpty()) {
+			Vertex v = s.pop();
+			res.add(v);
+			System.out.println(v.value);
+		}
+		return res;
 	}
 	
 	public void visit(Vertex v, Stack<Vertex> s) {
@@ -70,7 +76,7 @@ public class TopoSort {
 	 * Another approach is to maintain a set of nodes that
 	 * have no in-coming edges (0 indeggree), level by level find their children.
 	 */
-	public void Kahn_sort() {
+	public List<Vertex> Kahn_sort() {
 		// Create a map to store indegrees of all vertices
 		// Traverse adjacency lists to fill indegrees of vertices. This step takes O(V+E) time
 		Map<Vertex, Integer> indegree = fillDegree();
@@ -99,6 +105,7 @@ public class TopoSort {
 		for(Vertex v:res) {
 			System.out.println(v.value);
 		}
+		return res;
 	}
 	
 	public Map<Vertex, Integer> fillDegree() {
@@ -167,6 +174,61 @@ public class TopoSort {
 		}
 	}
 	
+	/*
+	 * This function computes shortest paths from src vertex to
+	 * all other vertices in a DAG. Use Topo Sort first, then process
+	 * each vertex in topo order to compute distances like Dijkstra. 
+	 * Complexity: O(V+E)
+	 */
+	public void shortestPath(Vertex v) {
+		List<Vertex> topo = DFS_sort();
+		for(Vertex u:topo) {
+			u.cost = Integer.MAX_VALUE;
+		}
+		v.cost = 0;
+		
+		for(Vertex u:topo) {
+			if(u.cost == Integer.MAX_VALUE) continue;
+			for(Vertex w:G.adjList.get(u)) {
+				int cost = u.cost + u.wneighbors.get(w);
+				if (cost < w.cost) {
+					w.cost = cost;
+					w.prev = u;
+				}
+			}
+		}
+		for(Vertex u:topo) {
+			System.out.println(u.cost);
+		}
+	}
+	
+	/*
+	 * This function computes longest paths from src vertex to
+	 * all other vertices in a DAG. Use Topo Sort first, then process
+	 * each vertex in topo order to compute distances like Dijkstra. 
+	 */
+	public void longestPath(Vertex v) {
+		List<Vertex> topo = DFS_sort();
+		for(Vertex u:topo) {
+			u.cost = Integer.MIN_VALUE;
+		}
+		v.cost = 0;
+		
+		for(Vertex u:topo) {
+			if(u.cost == Integer.MIN_VALUE) continue;
+			for(Vertex w:G.adjList.get(u)) {
+				int cost = u.cost + u.wneighbors.get(w);
+				if (cost > w.cost) {
+					w.cost = cost;
+					w.prev = u;
+				}
+			}
+		}
+		for(Vertex u:topo) {
+			System.out.println(u.cost);
+		}
+	}
+	
 	public static void main(String[] args) {
 		Graph g = new Graph();
 		Vertex v1 = new Vertex(1);
@@ -183,19 +245,31 @@ public class TopoSort {
 //		g.addDEdge(v2, v3);
 //		g.addDEdge(v3, v1);
 		
-		g.addDEdge(v0, v1);
-		g.addDEdge(v0, v2);
-		g.addDEdge(v0, v3);
-		g.addDEdge(v1, v4);
-		g.addDEdge(v2, v4);
-		g.addDEdge(v2, v5);
-		g.addDEdge(v3, v5);
+//		g.addDEdge(v0, v1);
+//		g.addDEdge(v0, v2);
+//		g.addDEdge(v0, v3);
+//		g.addDEdge(v1, v4);
+//		g.addDEdge(v2, v4);
+//		g.addDEdge(v2, v5);
+//		g.addDEdge(v3, v5);
+		
+		g.addWDEdge(v0, v1, 5);
+		g.addWDEdge(v0, v2, 3);
+		g.addWDEdge(v1, v3, 6);
+		g.addWDEdge(v1, v2, 2);
+		g.addWDEdge(v2, v4, 4);
+		g.addWDEdge(v2, v5, 2);
+		g.addWDEdge(v2, v3, 7);
+		g.addWDEdge(v3, v5, 1);
+		g.addWDEdge(v3, v4, -1);
+		g.addWDEdge(v4, v5, -2);
 		
 		TopoSort ts = new TopoSort(g);
 //		ts.DFS_sort();
 //		System.out.println();
 //		ts.Kahn_sort();
-		ts.allSorts();
+//		ts.allSorts();
+		ts.longestPath(v1);
 	}
 
 }
