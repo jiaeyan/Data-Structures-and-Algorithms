@@ -176,8 +176,9 @@ public class TopoSort {
 	
 	/*
 	 * This function computes shortest paths from src vertex to
-	 * all other vertices in a DAG. Use Topo Sort first, then process
-	 * each vertex in topo order to compute distances like Dijkstra. 
+	 * all other vertices in a DAG (positive and negative weights). 
+	 * Use Topo Sort first, then process each vertex in topo order 
+	 * to compute distances like Dijkstra. 
 	 * Complexity: O(V+E)
 	 */
 	public void shortestPath(Vertex v) {
