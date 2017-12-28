@@ -13,7 +13,11 @@ package string;
  * Core: Need a powerful hash function to compute to get rid of collision. Generally
  *       use asicII values, and also adopt a prime number, and use modular algorithm.
  *       Also the hash function should be able to compute next shift value in O(1).
- *       
+ * 
+ * Usage: Multiple pattern match, given multiple same length patterns, check if they appear in
+ *        a given document. Also able to check plagiarism, check if some pattern appear in
+ *        multiple documents even in different orders.
+ * 
  * Complexity: best - O(m + n), worst - O(m * n), where the weak hash function gives
  *             all substrings the same hash value, so the comparison will be the same
  *             as naive search.
