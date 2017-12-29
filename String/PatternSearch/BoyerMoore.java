@@ -182,9 +182,6 @@ public class BoyerMoore {
 	
 	// Combine both badchar and good suffix solutions to get the bigger
 	// one of them.
-	// Here we use asicii values instead of hashmap to store bad char value;
-	// and the value here indicates the skip distance rather than position
-	// of last occurrence.
 	public void ParallelSearch(String pat, String txt) {
 		int m = pat.length();
 		int n = txt.length();
@@ -205,14 +202,25 @@ public class BoyerMoore {
 				System.out.println("Pattern found at index: " + i);
 	            i += goodsfx[0];
 	        }
+			
 			// Otherwise choose from goodsfx and badchar solution to find the
-			// bigger skip step. For badchar solution
+			// bigger skip step.
+			
+			// Explanation of badchar solution's formula:
+			// txt.charAt(i+j): the unmatched char in txt, short as 'bc' below
+			// badchar[bc]: the distance from last occurrence of bc in pat to the end of pat
+			// m-1-j: the matched length of txt and pat, a.k.a. the length of good suffix
+			// badchar[bc] - (m-1-j): the skip step to move forward, may be negative,
+			//                        but since compared with goodsfx, we can leave it to be
 	        else {
-	            i += Math.max(goodsfx[j], badchar[txt.charAt(i+j) - m + 1 + j]);
+	            i += Math.max(goodsfx[j], badchar[txt.charAt(i+j)] - m + 1 + j);
 	        }
 		}
 	}
 	
+	// Here we use asicii values instead of hashmap to store bad char value;
+	// and the value here indicates the skip distance rather than position
+	// of last occurrence.
 	public int[] preBC(String pat, int[] badchar, int m) {
 		for (int i = 0; i < 256; ++i)
 			badchar[i] = m;
