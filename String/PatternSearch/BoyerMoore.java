@@ -181,7 +181,7 @@ public class BoyerMoore {
 	}
 	
 	// Combine both badchar and good suffix solutions to get the bigger
-	// one of them.
+	// skip step of them.
 	public void ParallelSearch(String pat, String txt) {
 		int m = pat.length();
 		int n = txt.length();
