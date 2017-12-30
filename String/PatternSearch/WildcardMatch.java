@@ -44,8 +44,9 @@ public class WildcardMatch {
 					dp[i][j] = dp[i-1][j-1];
 				}
 				
-				// If meet a '*', either ignore it, stay the same as dp[i-1][j], or treat
-				// the current char in txt as '*', as dp[i][j-1].
+				// If meet a '*', either ignore it, thus advance pat j but remain txt i, as dp[i-1][j];
+				// or treat the current char in txt as '*', thus advance txt i but remain pat j, 
+				// as dp[i][j-1].
 				else if (pat.charAt(j-1) == '*') {
 					dp[i][j] = dp[i-1][j] || dp[i][j-1];
 				}
