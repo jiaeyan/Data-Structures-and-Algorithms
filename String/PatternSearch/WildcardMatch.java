@@ -40,13 +40,20 @@ public class WildcardMatch {
 				// This cell's value depends on its former one, because if former is true, this
 				// is matched all so also true; if former is false, this match succeeds in vain,
 				// like 'abc?' and 'abbc', 'ab' match, '?' and 'c' match, but former 'c' and 'b' no.
+				
+				// pat.charAt(j-1) rather j is because num_col here is m+1, to go back to
+				// original pat to find corresponding char, the j should minus 1.
 				if(pat.charAt(j-1) == '?' || pat.charAt(j-1) == txt.charAt(i-1)) {
 					dp[i][j] = dp[i-1][j-1];
 				}
 				
-				// If meet a '*', either ignore it, thus advance pat j but remain txt i, as dp[i-1][j];
-				// or treat the current char in txt as '*', thus advance txt i but remain pat j, 
-				// as dp[i][j-1].
+				// If meet a '*':
+				// 1. treat it as 0 sequence in pat, so pat's j go back to j-1 (no advance due to 0 '*'),
+				//    the comparison point will be dp[i][j-1];
+				// 2. treat txt[j] as a part of '*' sequence, in other words, no advance in txt, so txt's i
+				//    go back to i-1, the comparion point will be dp[i-1][j]
+				// Check 11:30 to see above interpretations:
+				// https://www.youtube.com/watch?v=3ZDZ-N0EPV0&list=PLrmLmBdmIlpvm7VaC0NTR27A_3i2sU3zd&index=1
 				else if (pat.charAt(j-1) == '*') {
 					dp[i][j] = dp[i-1][j] || dp[i][j-1];
 				}
