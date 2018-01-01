@@ -6,11 +6,11 @@ import java.util.List;
 import java.util.Set;
 
 
-public class Cycle {
+public class DFSCycle {
 	
 	private Graph G;
 	
-	public Cycle(Graph graph) {
+	public DFSCycle(Graph graph) {
 		this.G = graph;
 	}
 	
@@ -138,7 +138,7 @@ public class Cycle {
 		g.addEdge(v3, v4);
 		g.addEdge(v1, v4);
 				
-		Cycle c = new Cycle(g);
+		DFSCycle c = new DFSCycle(g);
 		c.indirectedCycle();
 	}
 
