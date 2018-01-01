@@ -5,6 +5,13 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+/*
+ * Cycle detection approaches:
+ * 1. DFS: both for directed and undirected, O(V)
+ * 2. Union find: only for undirected, O(V)
+ * 3. Topological sorting: only for directed, O(V+E)
+ */
+
 
 public class DFSCycle {
 	
@@ -17,6 +24,7 @@ public class DFSCycle {
 	/*
 	 * This function prints all cycles in a directed graph.
 	 * DFS based brutal force approach to find all cycles in a directed graph.
+	 * Time complexity: O(V)
 	 * TBD: Tarjan's, Johnson's and other algorithms for directed graph.
 	 */
 	public void directedCycle() {
@@ -112,13 +120,13 @@ public class DFSCycle {
 		Vertex v4 = new Vertex(4);
 		Vertex v5 = new Vertex(5);
 
-//		g.addDEdge(v1, v3);
-//		g.addDEdge(v3, v5);
-//		g.addDEdge(v2, v1);
-//		g.addDEdge(v2, v3);
-//		g.addDEdge(v4, v2);
-//		g.addDEdge(v5, v4);
-//		g.addDEdge(v3, v4);
+		g.addDEdge(v1, v3);
+		g.addDEdge(v3, v5);
+		g.addDEdge(v2, v1);
+		g.addDEdge(v2, v3);
+		g.addDEdge(v4, v2);
+		g.addDEdge(v5, v4);
+		g.addDEdge(v3, v4);
 		
 //		g.addDEdge(v1, v3);
 //		g.addDEdge(v3, v5);
@@ -129,14 +137,14 @@ public class DFSCycle {
 //		g.addDEdge(v3, v4);
 //		g.addDEdge(v5, v2);
 		
-		g.addEdge(v1, v3);
-		g.addEdge(v3, v5);
-		g.addEdge(v2, v1);
-		g.addEdge(v3, v2);
-		g.addEdge(v4, v2);
-		g.addEdge(v4, v5);
-		g.addEdge(v3, v4);
-		g.addEdge(v1, v4);
+//		g.addEdge(v1, v3);
+//		g.addEdge(v3, v5);
+//		g.addEdge(v2, v1);
+//		g.addEdge(v3, v2);
+//		g.addEdge(v4, v2);
+//		g.addEdge(v4, v5);
+//		g.addEdge(v3, v4);
+//		g.addEdge(v1, v4);
 				
 		DFSCycle c = new DFSCycle(g);
 		c.indirectedCycle();
