@@ -10,6 +10,7 @@ public class Vertex {
 	boolean seen;     //this is to record if the vertex has been discovered during traversal
 	Vertex prev;
 	int cost;         //this is for dijkstra algorithm, the cost sum till this vertex, which will be initialized externally.
+	int rank;         //this is for union-find algorithm (union by rank)
 	List<Vertex> neighbors;
 	Map<Vertex, Integer> wneighbors;
 	
