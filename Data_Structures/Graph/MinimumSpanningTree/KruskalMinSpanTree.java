@@ -14,27 +14,29 @@ import java.util.List;
  * This class provides a function to compute the mst of a given graph.
  */
 
-//[Kruskal's algorithm]
-//
-// Type:
-// Greedy algorithm
-//
-// Goal:
-// Find the minimum spanning tree of given undirected, weighted graph.
-//
-// Kruskal's algorithm is based on union-find algorithm.
-// 1. Sort all edges in ascending order by weight.
-// 2. Pick the edge that will not form a cycle (detected by union-find)
-//    from the sorted edge list in order, and add it into the result.
-// 3. Keep going until there is (V-1) edges in the result.
-//
-// Proof:
-// Given graph has V vertices, MST has (V-1) edges and no cycle, so there must
-// be V vertices in the MST when there is (V-1) edges.
-//
-// Complexity:
-// Time complexity - O(ElogE) for sort edges, union-find takes too much less time
-// Space complexity - O(E + V)
+/*
+ * [Kruskal's algorithm]
+ *
+ * Type:
+ * Greedy algorithm
+ *
+ * Goal:
+ * Find the minimum spanning tree of given undirected, weighted graph.
+ *
+ * Kruskal's algorithm is based on union-find algorithm.
+ * 1. Sort all edges in ascending order by weight.
+ * 2. Pick the edge that will not form a cycle (detected by union-find)
+ *    from the sorted edge list in order, and add it into the result.
+ * 3. Keep going until there is (V-1) edges in the result.
+ *
+ * Proof:
+ * Given graph has V vertices, MST has (V-1) edges and no cycle, so there must
+ * be V vertices in the MST when there is (V-1) edges.
+ *
+ * Complexity:
+ * Time complexity - O(ElogE) for sort edges, union-find takes too much less time
+ * Space complexity - O(E + V)
+ */
 
 public class KruskalMinSpanTree {
 	
