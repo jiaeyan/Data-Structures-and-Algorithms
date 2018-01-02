@@ -3,6 +3,9 @@ package graph;
 import java.util.HashMap;
 import java.util.Map;
 
+/*
+ * This data structure may be used by Dijkstra's and Prim's algorithms.
+ */
 public class BinaryMinHeap {
 	int capacity;
 	int size;
