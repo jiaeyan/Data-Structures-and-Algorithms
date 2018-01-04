@@ -1,3 +1,4 @@
+package sort;
 
 /*
  * Compare two neighboring elements each time, swap if 1st > 2nd.
@@ -6,11 +7,11 @@
  * Time complexity: best O(n), worst O(n^2), average O(n^2), stable.
  */
 
-public class Bubble_Sort {
+public class BubbleSort {
 
 	public static void main(String[] args) {
 		int[] arr = {4,2,5,7,9,8,3,1,6,0};
-		Bubble_Sort bs = new Bubble_Sort();
+		BubbleSort bs = new BubbleSort();
 		
 		int[] res1 = bs.naive_sort(arr);
 		int[] res2 = bs.shrink_sort(arr);
