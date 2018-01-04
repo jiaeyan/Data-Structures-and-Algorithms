@@ -1,16 +1,18 @@
+package sort;
+
 import java.util.Arrays;
 
 /*
  * Keep dividing list into half and half until each sublist only has 1 element,
  * merge two parts pair by pair and eventually get the entire sorted list.
- * Time complexity: worst = average = O(nlogn)
+ * Time complexity: best = worst = average = O(nlogn)
  */
 
-public class Merge_Sort {
+public class MergeSort {
 
 	public static void main(String[] args) {
 		int[] arr = {4,2,10,5,7,9,8,3,1,6,0};
-		Merge_Sort ms = new Merge_Sort();
+		MergeSort ms = new MergeSort();
 		int[] res = ms.topDownSort(arr);
 		for (int i = 0; i < res.length; i++) System.out.println(res[i]);
 	}
