@@ -1,3 +1,4 @@
+package sort;
 
 /*
  * Fix a pivot, put all elements less than it on the left and higher on the right,
@@ -7,18 +8,18 @@
  * Time complexity: best = average = nlogn, worst = n^2, not stable.
  */
 
-public class Quick_Sort {
+public class QuickSort {
 
 	public static void main(String[] args) {
 		int[] arr = {4,11,2,10,5,7,9,8,5,3,1,6,0};
-		Quick_Sort qs = new Quick_Sort();
+		QuickSort qs = new QuickSort();
 		qs.sort(arr, 0, arr.length-1);
 		for (int i = 0; i < arr.length; i++) System.out.println(arr[i]);
 	}
 	
 	public void sort(int[] arr, int start, int end) {
-	    //base case: if only one element in list, no need to partition more
-	    if (start < end) {
+		//base case: if only one element in list, no need to partition more
+		if (start < end) {
             //get partitioning index (pi), cut the list into two parts by it
             int pi = lomutoPartition(arr, start, end);
 //            int pi = hoarePartition(arr, start, end);
