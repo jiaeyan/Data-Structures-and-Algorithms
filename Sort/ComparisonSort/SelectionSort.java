@@ -1,3 +1,4 @@
+package sort;
 
 /*
  * Search entire list to get minimum, swap to head to form sorted sublist,
@@ -5,11 +6,11 @@
  * Time complexity: best O(n), worst = average = O(n^2), stable. 
  */
 
-public class Selection_Sort {
+public class SelectionSort {
 
 	public static void main(String[] args) {
 		int[] arr = {4,2,5,7,9,8,3,1,6,0};
-		Selection_Sort ss = new Selection_Sort();
+		SelectionSort ss = new SelectionSort();
 		ss.sort(arr);
 		for (int i = 0; i < arr.length; i++) System.out.println(arr[i]);
 
