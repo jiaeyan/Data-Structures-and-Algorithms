@@ -1,10 +1,10 @@
 package sort;
 
-public class Heap_Sort {
+public class HeapSort {
 
 	public static void main(String[] args) {
 		int[] arr = {4,11,2,10,5,7,9,8,5,2,3,1,6,0};
-		Heap_Sort hs = new Heap_Sort();
+		HeapSort hs = new HeapSort();
 		hs.sort(arr);
 		for (int i = 0; i < arr.length; i++) System.out.println(arr[i]);
 	}
