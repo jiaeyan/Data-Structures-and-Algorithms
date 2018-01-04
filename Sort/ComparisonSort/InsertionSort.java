@@ -1,16 +1,17 @@
+package sort;
 
 /*
  * [sorted list | x, unsorted list], 
  * sorted list = [ >x | ... | <x], replace x with ...
- * Apply reversed bubble sort inside sorted list.
+ * Apply reversed bubble sort inside sorted list. Happen in place, no new list is needed.
  * Time complexity: best O(n), already all sorted; worst O(n^2), all reversed; average O(n^2), stable.
  */
 
-public class Insertion_Sort {
+public class InsertionSort {
 
 	public static void main(String[] args) {
 		int[] arr = {4,2,5,7,9,8,3,1,6,0};
-		Insertion_Sort is = new Insertion_Sort();
+		InsertionSort is = new InsertionSort();
 		
 		int[] res1 = is.swap_sort(arr);
 		int[] res2 = is.skip_sort(arr);
