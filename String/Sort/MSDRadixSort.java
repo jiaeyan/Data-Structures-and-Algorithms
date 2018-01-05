@@ -33,22 +33,27 @@ public class MSDRadixSort {
 	// After 1st pass, l and h defines a subarray where all items inside it
 	// have the same dth char.
 	public void sort(String[] output, String[] temp, int l, int h, int d) {
-		if(l >= h || d >= output[0].length()) return;
+		if(l >= h) return;
 		
-		int[] count = new int[R];
+		// Assume a special char at the end of each string, whose
+		// asicii be -1, so the length of count array need +1.
+		// By doing this, this algorithm allows varied-length strings.
+		// Every time meet a "-1", indicating the end of a string.
+		int[] count = new int[R+1];
 					
 		for(int i = l; i <= h; i++) {
-			count[output[i].charAt(d)]++;
+			// 'a' = 1 instead of 0, now '<end>' = 0.
+			count[charAt(output[i], d) + 1]++;
 		}
 					
-		for(int i = 1; i < R; i++) {
+		for(int i = 1; i < R+1; i++) {
 			count[i] += count[i-1];
 		}
 					
 		for(int i = h; i >= l; i--) {
-			int c = output[i].charAt(d);
-			temp[count[c]-1] = output[i];
-			count[c]--;
+			int c = charAt(output[i], d);
+			temp[count[c+1]-1] = output[i];
+			count[c+1]--;
 		}
 		
 		// output[i]: start from l to h of output
@@ -62,14 +67,19 @@ public class MSDRadixSort {
 		
 //		System.arraycopy(temp, 0, output, l, h-l+1);
 		
-		for(int i = 0; i < R-1; i++) {
+		for(int i = 0; i < R; i++) {
 			sort(output, temp, l+count[i], l+count[i+1]-1, d+1);
 		}
+	}
+	
+	public int charAt(String s, int d) {
+		if(d >= s.length()) return -1;
+		return s.charAt(d);
 	}
 
 	public static void main(String[] args) {
 		MSDRadixSort msd = new MSDRadixSort();
-		String[] arr = {"abs","cat", "abs", "eye", "cut", "arc", "car", "yes", "exe", "exc", "bye", "but", "cat"};
+		String[] arr = {"absent","citten", "absenc", "citted", "eye", "cut", "arc", "car", "yes", "exe", "exc", "bye", "but", "cat"};
 		for(String str:msd.sort(arr)) {
 			System.out.println(str);
 		}
